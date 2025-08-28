@@ -1,0 +1,12 @@
+<h1>Verify </h1>
+
+<form [formGroup]="verifyForm" (ngSubmit)="onSubmit()">
+
+
+
+<label for="otp">otp: </label>
+<input id="otp" type="number" formControlName="otp">
+
+
+  <button type="submit"  [disabled]="!verifyForm.valid">Submit</button>
+</form>

@@ -1,0 +1,18 @@
+<h1>Sign Up </h1>
+
+<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+<label for="name">Name: </label>
+<input id="name" type="text" formControlName="name">
+
+<label for="email">Email: </label>
+<input id="email" type="email" formControlName="email">
+
+<label for="phone">Phone: </label>
+<input id="phone" type="text" formControlName="phone">
+
+<label for="password">Password: </label>
+<input id="password" type="password" formControlName="password">
+
+
+  <button type="submit"  [disabled]="!profileForm.valid">Submit</button>
+</form>
