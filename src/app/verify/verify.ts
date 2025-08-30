@@ -1,27 +1,46 @@
-import { Component } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, signal } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Loader } from '../loader/loader';
 
 @Component({
   selector: 'app-verify',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, Loader],
   templateUrl: './verify.html',
   styleUrl: './verify.css',
 })
 export class Verify {
   email: string | null = null;
+  isSubmitting = signal(false);
+  errorMessage = signal<string | null>(null);
 
   verifyForm = new FormGroup({
-    otp: new FormControl(''),
+    otp: new FormControl('', [
+      Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(6),
+    ]),
   });
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(
+    private toaster: ToastrService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.email = this.route.snapshot.paramMap.get('email');
   }
 
   async onSubmit() {
+
+    if (this.verifyForm.invalid) {
+      this.errorMessage.set('please enter valid values');
+      return;
+    }
+
+    this.isSubmitting.set(true);
     try {
       const payload = {
         email: this.email,
@@ -36,10 +55,42 @@ export class Verify {
       });
       const result = await res.json();
       if (result?.success) {
-        this.router.navigate(['/login']);
+        this.toaster.success('OTP Verified,  Redirectin....');
+        setTimeout(() => {
+          this.router.navigate(['/login']);
+        }, 1500);
+      } else {
+        this.toaster.error(result?.message);
+      }
+    } catch (error: any) {
+      this.toaster.error(error?.response?.data?.message || 'An error occurred. Please try again.');
+    } finally {
+      this.isSubmitting.set(false);
+    }
+  }
+
+  async resendOtp() {
+    try {
+      const payload = {
+        email: this.email,
+      };
+      const res = await fetch('http://localhost:5000/auth/resend-otp', {
+        body: JSON.stringify(payload),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const result = await res.json();
+      if (result?.success) {
+        this.toaster.success('Otp Resent Successfully');
+      } else {
+        this.toaster.error(result?.message);
       }
     } catch (error: any) {
       console.error(error?.message);
+    } finally {
+      this.isSubmitting.set(false);
     }
   }
 }

@@ -1,1 +1,25 @@
-<p>header works!</p>
+<header class="border-b border-gray-200 bg-white">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="flex h-16 items-center justify-between">
+      <a href="/" class="text-lg font-semibold text-gray-700 hover:text-gray-900">
+        PrimaFelicitas
+      </a>
+
+      <div class="flex items-center gap-4">
+        <button
+          class="hidden md:flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-gray-900"
+        >
+         
+          <span>{{user?.name}}</span>
+        </button>
+
+        <button
+          (click)="authService.logout()"
+          class="p-2 rounded-md text-gray-600 hover:text-gray-900 cursor-pointer"
+        >
+          Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

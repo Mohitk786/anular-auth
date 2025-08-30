@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Toast } from './toast';
+import { UsersTable } from './users-table';
 
-describe('Toast', () => {
-  let component: Toast;
-  let fixture: ComponentFixture<Toast>;
+describe('UsersTable', () => {
+  let component: UsersTable;
+  let fixture: ComponentFixture<UsersTable>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Toast]
+      imports: [UsersTable]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(Toast);
+    fixture = TestBed.createComponent(UsersTable);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

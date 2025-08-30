@@ -1,1 +1,21 @@
-<p>dashboard works!</p>
+<div class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+  <app-header></app-header>
+  <div class="flex flex-col items-center gap-16 py-12">
+    @if(allUsers().length){
+    <div class="flex items-center flex-col gap-8">
+      <p>All Registered Users</p>
+      <app-users-table [users]="allUsers()"></app-users-table>
+    </div>
+    }@else{
+    <p class="text-gray-500">No users have registered yet.</p>
+    } @if(allUsers().length){
+    <div class="flex items-center flex-col gap-8">
+      <p>Today's Registration</p>
+      <app-users-table [users]="registeredToday()"></app-users-table>
+    </div>
+    }@else {
+    <p class="text-gray-500">No users have registered today.</p>
+    }
+  </div>
+  <app-footer></app-footer>
+</div>

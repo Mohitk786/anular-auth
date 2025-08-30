@@ -1,0 +1,36 @@
+<table class="bg-white border border-gray-200">
+  <thead>
+    <tr>
+      <th
+        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+      >
+        ID
+      </th>
+      <th
+        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+      >
+        Email
+      </th>
+      <th
+        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+      >
+        Verified
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (user of users; track user._id) {
+    <tr>
+      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-900">{{ user._id }}</td>
+      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-900">{{ user.email }}</td>
+      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-900">
+        @if (user.isVerified) {
+        <span class="text-green-600 font-semibold">Yes</span>
+        } @else {
+        <span class="text-red-600 font-semibold">No</span>
+        }
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
