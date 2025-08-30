@@ -6,14 +6,13 @@ import {z} from 'zod'
 const saltRounds= 10
 
 
-type User = z.infer<typeof registerSchema> & {isVerfied:boolean}
+type User = z.infer<typeof registerSchema> & {isVerified:boolean}
 
 const userSchema = new Schema<User>(
   {
     name: {
       type: String,
       required: [true, "name is required"],
-      unique: true,
       trim: true,
       lowercase: true,
       minlength: [3, "name must be at least 3 characters"],
@@ -38,7 +37,7 @@ const userSchema = new Schema<User>(
         required:[true, 'Phone is required']
 
     },
-    isVerfied: {
+    isVerified: {
         type:Boolean,
         default:false
     }

@@ -13,9 +13,8 @@ const otpSchema = new Schema(
       lowercase: true,
       trim: true,
     },
-    expiresAt: {
+    otpExpiresAt: {
       type: Date,
-      required: [true, "OTP expiration is required"],
     },
     isUsed: {
       type: Boolean,
@@ -23,7 +22,14 @@ const otpSchema = new Schema(
     },
     value: {
         type: String,
-        required:true
+        default:null
+    },
+    resetToken: {
+      type:String,
+      default:null
+    },
+    resetTokenExpiresAt:{
+      type:Date
     }
   },
   {
