@@ -13,6 +13,6 @@ export class Header {
   user: User | null = null;
 
   ngOnInit(): void {
-    this.user = JSON.parse(localStorage.getItem('user') || '{}');
+    this.user = JSON.parse(localStorage.getItem('user') || 'null');
   }
 }
