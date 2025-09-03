@@ -1,0 +1,26 @@
+<div class="p-4 space-y-6 h-[20%]">
+  <h2 class="text-xl font-bold">User Statistics</h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Line Chart -->
+    <div class="p-4 bg-white rounded-xl shadow">
+      <h3 class="text-lg font-semibold mb-2">Last 5 Days Registrations</h3>
+      <canvas baseChart
+        [data]="lineChartData"
+        [options]="lineChartOptions"
+        chartType="line">
+      </canvas>
+    </div>
+
+    <div class="p-4 bg-white rounded-xl shadow">
+      <h3 class="text-lg font-semibold mb-2">Today vs All Time</h3>
+      <canvas baseChart
+        [data]="pieChartData"
+        [options]="pieChartOptions"
+        chartType="pie"
+        type="pie">
+        
+      </canvas>
+    </div>
+  </div>
+</div>

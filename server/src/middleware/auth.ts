@@ -18,6 +18,10 @@ export const isAuthenticated = (req: CustomRequest, res: Response, next: NextFun
       isVerified: decoded?.isVerified,
     };
 
+    if(decoded?.isVerified === false) {
+      return res.status(403).json({ message: 'Please verify your email to access this resource' });
+    }
+
     next();
   } catch (err) {
     console.error('Authentication error:', err);

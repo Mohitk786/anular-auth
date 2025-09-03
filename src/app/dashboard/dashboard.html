@@ -1,21 +1,25 @@
-<div class="min-h-screen bg-gradient-to-b from-blue-50 to-white">
-  <app-header></app-header>
-  <div class="flex flex-col max-w-[80%]  mx-auto gap-16 mt-16">
+  <div class="flex flex-col max-w-[80%] mx-auto gap-16 mt-10">
     @if(allUsers().length){
-    <div class="flex flex-col gap-4 ">
+    <div class="flex flex-col gap-4">
       <p class="text-2xl font-semibold">All Registered Users</p>
       <app-users-table [users]="allUsers()" />
     </div>
     }@else{
     <p class="text-gray-500">No users have registered yet.</p>
     } @if(allUsers().length){
-    <div class="flex  flex-col gap-4">
+    <div class="flex flex-col gap-4">
       <p class="text-2xl font-semibold">Today's Registration</p>
       <app-users-table [users]="registeredToday()" />
     </div>
     }@else {
     <p class="text-gray-500">No users have registered today.</p>
     }
+    <app-user-chart
+      [last5Days]="last5Days()"
+      [last5DaysData]="last5DaysData()"
+      [todayUsersCount]="registeredToday().length"
+      [totalUsersCount]="allUsers().length"
+    />
   </div>
-  <app-footer></app-footer>
-</div>
+
+

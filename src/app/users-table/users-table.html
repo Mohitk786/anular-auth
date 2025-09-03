@@ -1,56 +1,75 @@
-<table class="bg-white border border-gray-200 min-w-full">
-  <thead>
-    <tr>
-      <th
-        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
-      >
-        ID
-      </th>
-       <th
-        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
-      >
-        Name
-      </th>
-      <th
-        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
-      >
-        Email
-      </th>
-      <th
-        class="py-2 px-4 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
-      >
-        Verified
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-   @if(users.length){
-    @for(user of users; track user?._id){
-    <tr class="hover:bg-gray-100">
-      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-        {{user._id}}
-      </td>
-       <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-        {{user.name}}
-      </td>
-      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-        {{user.email}}
-      </td>
-      <td class="py-2 px-4 border-b border-gray-200 text-sm text-gray-700">
-        @if(user.isVerified){
-          <span class="text-green-600 font-semibold">Yes</span>
-        }@else{
-          <span class="text-red-600 font-semibold">No</span>
-        }
-      </td>
-    </tr>
-    }
-   }@else{
-    <tr>
-      <td colspan="4" class="py-4 px-4 text-center text-gray-500">
-        No users to display.
-      </td>
-    </tr>
-   }
-  </tbody>
-</table>
+<div class="overflow-x-auto rounded-lg shadow">
+  <table class="min-w-full border-collapse bg-white">
+    <thead>
+      <tr>
+        <th
+          class="py-3 px-6 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+        >
+          ID
+        </th>
+        <th
+          class="py-3 px-6 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+        >
+          Name
+        </th>
+        <th
+          class="py-3 px-6 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+        >
+          Email
+        </th>
+        <th
+          class="py-3 px-6 border-b border-gray-200 bg-gray-50 text-left text-sm font-semibold text-gray-700"
+        >
+          Verified
+        </th>
+        <th
+          class="py-3 px-6 border-b border-gray-200 bg-gray-50 text-center text-sm font-semibold text-gray-700"
+        >
+          Action
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      @if(users.length) { @for(user of users; track user?._id) {
+      <tr class="hover:bg-gray-50 transition-colors">
+        <td class="py-3 px-6 border-b border-gray-200 text-sm text-gray-700">
+          {{ user._id }}
+        </td>
+        <td class="py-3 px-6 border-b border-gray-200 text-sm text-gray-700">
+          {{ user.name }}
+        </td>
+        <td class="py-3 px-6 border-b border-gray-200 text-sm text-gray-700">
+          {{ user.email }}
+        </td>
+        <td class="py-3 px-6 border-b border-gray-200 text-sm">
+          @if(user.isVerified) {
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700"
+          >
+            ✔ Yes
+          </span>
+          } @else {
+          <span
+            class="inline-flex items-center gap-1 rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700"
+          >
+            ✘ No
+          </span>
+          }
+        </td>
+        <td class="py-3 px-6 border-b border-gray-200 text-center">
+          <button
+            (click)="removeUser(user?._id)"
+            class="cursor-pointer rounded-md bg-red-500 px-3 py-1.5 text-xs font-medium text-white shadow hover:bg-red-600 transition"
+          >
+            {{ !isDashboard ? 'Remove' : 'Restore' }}
+          </button>
+        </td>
+      </tr>
+      } } @else {
+      <tr>
+        <td colspan="5" class="py-6 px-6 text-center text-gray-500">No users to display.</td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>

@@ -76,6 +76,13 @@ const resendOtp = async (req: Request, res: Response) => {
       });
     }
 
+    if (user.isVerified) {
+      return res.status(400).json({
+        success: false,
+        message: `This account is already verified, please login`,
+      });
+    }
+
     const existingOTP = await Otp.findOne({
       email,
     });
@@ -111,9 +118,7 @@ const resendOtp = async (req: Request, res: Response) => {
     return res.status(200).json({
       success: true,
       message: `OTP sent successfully to ${email}`,
-
     });
-
   } catch (err: any) {
     return res.status(400).json({
       success: false,
@@ -130,6 +135,22 @@ const verify = async (req: Request, res: Response) => {
       return res.status(400).json({
         success: false,
         message: 'Email and Otp are required',
+      });
+    }
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(400).json({
+        success: false,
+        message: 'User Not Found with this email, signup again',
+      });
+    }
+
+    if (user?.isVerified) {
+      return res.status(400).json({
+        success: false,
+        message: 'User is already verified, please login',
       });
     }
 
@@ -160,11 +181,8 @@ const verify = async (req: Request, res: Response) => {
     //Otp no longer need
     await Otp.findByIdAndDelete(existOtp._id);
 
-    const user = await User.findOne({ email });
-    if (user) {
-      user.isVerified = true;
-      await user.save();
-    }
+    user.isVerified = true;
+    await user.save();
 
     return res.status(200).json({
       success: true,
@@ -199,8 +217,6 @@ const login = async (req: Request, res: Response) => {
         message: `Email does not Exist. Please Signup !`,
       });
     }
-
-    
 
     if (!existingUser.isVerified) {
       return res.status(400).json({
@@ -237,10 +253,10 @@ const login = async (req: Request, res: Response) => {
       success: true,
       message: 'Login successful',
       token,
-      user:{
+      user: {
         ...existingUser.toObject(),
-        password: undefined
-      }
+        password: undefined,
+      },
     });
   } catch (err: any) {
     return res.status(400).json({

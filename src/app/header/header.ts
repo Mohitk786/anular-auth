@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth';
 import { User } from '../dashboard/dashboard';
+import { RouterModule } from '@angular/router';
+
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })

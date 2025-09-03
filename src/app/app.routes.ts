@@ -7,12 +7,24 @@ import { ForgotPassword } from './forgot-password/forgot-password';
 import { ResetPassword } from './reset-password/reset-password';
 import { authGuard } from './guards/auth-guard';
 import { publicPageGuard } from './guards/public-page-guard';
+import { Layout } from './layout/layout';
 
 export const routes: Routes = [
   {
     path: '',
-    component: Dashboard,
-    canActivate: [authGuard],
+    component: Layout,
+    canActivateChild: [authGuard],
+    children:[
+      {
+        path: '',
+        component: Dashboard,
+      },
+      {
+        path: 'recycle',
+        loadComponent: () => import('./recycle/recycle').then(m => m.Recycle),
+      }
+    ]
+
   },
   {
     path: 'signup',

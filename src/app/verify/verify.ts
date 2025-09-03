@@ -3,10 +3,11 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Loader } from '../loader/loader';
+import {NgOtpInputComponent} from 'ng-otp-input'
 
 @Component({
   selector: 'app-verify',
-  imports: [ReactiveFormsModule, Loader],
+  imports: [ReactiveFormsModule, Loader, NgOtpInputComponent],
   templateUrl: './verify.html',
   styleUrl: './verify.css',
 })

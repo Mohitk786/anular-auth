@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Login {
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
   });
 

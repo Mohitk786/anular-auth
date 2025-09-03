@@ -3,12 +3,12 @@ import {forgotPassword, login, resendOtp, resetPassword, signUp, verify} from ".
 
 const router = Router();
 
-router.use('/login', login)
-router.use('/signup', signUp)
-router.use('/Verify', verify)
-router.use('/forgot-password', forgotPassword)
-router.use('/reset-password', resetPassword)
-router.use('/resend-otp', resendOtp)
+router.post('/login', login)
+router.post('/signup', signUp)
+router.post('/Verify', verify)
+router.post('/forgot-password', forgotPassword)
+router.post('/reset-password', resetPassword)
+router.post('/resend-otp', resendOtp)
 
 
 export default router;
