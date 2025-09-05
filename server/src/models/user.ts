@@ -19,7 +19,10 @@ const userSchema = new Schema<User>(
       maxlength: [30, "name cannot exceed 30 characters"],
      
     },
-  
+    countryCode: {
+      type: String,
+      required: [true, 'Country code is required']
+    },
     email: {
       type: String,
       unique: true,

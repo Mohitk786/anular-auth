@@ -1,5 +1,5 @@
 <div
-  class="flex flex-col min-h-screen justify-center items-center bg-gradient-to-b from-blue-50 to-white"
+  class="flex flex-col min-h-screen justify-center items-center"
 >
   <h1 class="text-3xl text-center font-extrabold mb-8 text-blue-700">Verify Your Account</h1>
 
@@ -19,7 +19,7 @@
         [class.border-red-500]="verifyForm.get('otp')?.invalid"
       />
 
-      @if(verifyForm.get('otp')?.errors?.['required']) {
+      @if(verifyForm.get('otp')?.errors?.['required'] && verifyForm.get('otp')?.touched) {
       <div class="text-red-500 text-sm mt-1">OTP is required.</div>
       }
 

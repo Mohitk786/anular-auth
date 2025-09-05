@@ -6,8 +6,11 @@ import { Otp } from '../models/otp.js';
 import { sendMail } from '../lib/nodemailer.js';
 import jwt from 'jsonwebtoken';
 import { config } from '../constants/index.js';
+import { verifyRecaptcha } from '../utils/helpers/capthcaValidation.js';
 
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
+
+
 
 const signUp = async (req: Request, res: Response) => {
   try {
@@ -20,7 +23,7 @@ const signUp = async (req: Request, res: Response) => {
       });
     }
 
-    const { email, phone, name, password } = await result.data!;
+    const { email, phone, name, password, countryCode } = await result.data!;
 
     const existingUser = await User.findOne({
       $or: [{ email }, { phone }],
@@ -38,6 +41,7 @@ const signUp = async (req: Request, res: Response) => {
       phone,
       name,
       password,
+      countryCode
     });
 
     const otpVal = generateOTP();
@@ -207,7 +211,12 @@ const login = async (req: Request, res: Response) => {
       });
     }
 
-    const { email, password } = result.data;
+    const { email, password, recaptcha } = result.data;
+
+    
+    if (!(await verifyRecaptcha(recaptcha))) {
+      return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed' });
+    }
 
     const existingUser = await User.findOne({ email });
 

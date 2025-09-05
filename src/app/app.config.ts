@@ -4,6 +4,8 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
+ import { MatIconModule } from '@angular/material/icon';
+ 
 
 import { routes } from './app.routes';
 import { provideToastr } from 'ngx-toastr';
@@ -17,12 +19,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimations(),
     provideToastr({
-      timeOut: 3000,
+      timeOut: 1500,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true,
       progressAnimation: 'increasing',
     }),
     provideCharts(withDefaultRegisterables()),
+    MatIconModule,
   ],
 };

@@ -7,9 +7,14 @@ const registerSchema = z.object({
   email: z.email({ message: 'Invalid email format' }),
   password: z.string().min(8, { message: 'Password should be atlest 8 character long' }),
   phone: z.string().regex(phoneRegex, 'Invalid Number!'),
+  countryCode: z.string().min(1, { message: 'Country code is required' }),
 });
 
-const loginSchema = registerSchema.omit({ phone: true, name: true });
+const loginSchema = registerSchema
+  .omit({ phone: true, name: true })
+  .extend({
+    recaptcha: z.string().min(1, { message: 'Please verify reCAPTCHA' }),
+  });
 
 const resetPasswordSchema = z.object({
   newPassword: z.string().min(8, { message: 'Password should be atlest 8 character long' }),

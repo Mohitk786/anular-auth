@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UsersTable {
   @Input() users!: User[];
- @Input() isDashboard = false;
+  @Input() isDashboard = false;
 
 
   constructor(private toaster: ToastrService) {}

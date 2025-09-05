@@ -56,7 +56,6 @@ export class Dashboard {
 
       if (data?.success) {
         this.usersData.set(data.data);
-      console.log('Total users data:', data?.data);
 
       } else {
         this.toaster.error(data?.message || 'Failed to fetch users data');
